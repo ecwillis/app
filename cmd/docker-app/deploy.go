@@ -25,6 +25,7 @@ type deployOptions struct {
 	deployKubeConfig    string
 	deployNamespace     string
 	deployStackName     string
+	sendRegistryAuth    bool
 }
 
 // deployCmd represents the deploy command
@@ -47,6 +48,7 @@ func deployCmd(dockerCli *command.DockerCli) *cobra.Command {
 	cmd.Flags().StringVarP(&opts.deployKubeConfig, "kubeconfig", "k", "", "kubeconfig file to use")
 	cmd.Flags().StringVarP(&opts.deployNamespace, "namespace", "n", "default", "namespace to deploy into")
 	cmd.Flags().StringVarP(&opts.deployStackName, "name", "d", "", "stack name (default: app name)")
+	cmd.Flags().BoolVarP(&opts.sendRegistryAuth, "with-registry-auth", "", false, "send registry auth")
 	if internal.Experimental == "on" {
 		cmd.Flags().StringArrayVarP(&opts.deployComposeFiles, "compose-files", "c", []string{}, "Override Compose files")
 	}
