@@ -89,6 +89,7 @@ func runDeploy(dockerCli *command.DockerCli, appname string, opts deployOptions)
 		ctx := context.Background()
 		return swarm.DeployCompose(ctx, dockerCli, rendered, options.Deploy{
 			Namespace: stackName,
+		  SendRegistryAuth: opts.sendRegistryAuth,
 		})
 	}
 	// kube mode
@@ -99,5 +100,5 @@ func runDeploy(dockerCli *command.DockerCli, appname string, opts deployOptions)
 	if err != nil {
 		return err
 	}
-	return kubernetes.DeployStack(kubeCli, options.Deploy{Namespace: stackName}, rendered)
+  return kubernetes.DeployStack(kubeCli, options.Deploy{Namespace: stackName}, rendered)
 }
